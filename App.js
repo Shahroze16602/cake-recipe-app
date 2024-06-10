@@ -1,41 +1,41 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import HomeScreen from './src/screens/HomeScreen';
-import RecipeScreen from './src/screens/RecipeScreen';
-import AddRecipeScreen from './src/screens/AddRecipeScreen';
-import FavoritesScreen from './src/screens/FavoritesScreen';
-import LoginScreen from './src/screens/LoginScreen';
-import RegisterScreen from './src/screens/RegisterScreen';
-import { auth } from './src/firebase';
-import { AppRegistry } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import HomeScreen from "./src/screens/HomeScreen";
+import RecipeScreen from "./src/screens/RecipeScreen";
+import AddRecipeScreen from "./src/screens/AddRecipeScreen";
+import FavoritesScreen from "./src/screens/FavoritesScreen";
+import LoginScreen from "./src/screens/LoginScreen";
+import RegisterScreen from "./src/screens/RegisterScreen";
+import { auth } from "./src/firebase";
+import { AppRegistry } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-AppRegistry.registerComponent('cake-recipe-app', () => App);
+AppRegistry.registerComponent("cake-recipe-app", () => App);
 
 const HomeTabs = () => (
   <Tab.Navigator
-    // screenOptions={({ route }) => ({
-    //   tabBarIcon: ({ color, size }) => {
-    //     let iconName;
+  // screenOptions={({ route }) => ({
+  //   tabBarIcon: ({ color, size }) => {
+  //     let iconName;
 
-    //     if (route.name === 'Home') {
-    //       iconName = 'home-outline';
-    //     } else if (route.name === 'Favorites') {
-    //       iconName = 'heart-outline';
-    //     }
+  //     if (route.name === 'Home') {
+  //       iconName = 'home-outline';
+  //     } else if (route.name === 'Favorites') {
+  //       iconName = 'heart-outline';
+  //     }
 
-    //     return <Icon name={iconName} size={size} color={color} />;
-    //   },
-    // })}
-    // tabBarOptions={{
-    //   activeTintColor: 'blue',
-    //   inactiveTintColor: 'gray',
-    // }}
+  //     return <Icon name={iconName} size={size} color={color} />;
+  //   },
+  // })}
+  // tabBarOptions={{
+  //   activeTintColor: 'blue',
+  //   inactiveTintColor: 'gray',
+  // }}
   >
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Favorites" component={FavoritesScreen} />
@@ -44,7 +44,15 @@ const HomeTabs = () => (
 
 const AppStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ title: "Cake Recipe App", headerTitleAlign:'center', headerShadowVisible: false }} />
+    <Stack.Screen
+      name="HomeTabs"
+      component={HomeTabs}
+      options={{
+        title: "Cake Recipe App",
+        headerTitleAlign: "center",
+        headerShadowVisible: false,
+      }}
+    />
     <Stack.Screen name="Recipe" component={RecipeScreen} />
     <Stack.Screen name="AddRecipe" component={AddRecipeScreen} />
   </Stack.Navigator>
@@ -52,8 +60,16 @@ const AppStack = () => (
 
 const AuthStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="Login" component={LoginScreen} />
-    <Stack.Screen name="Register" component={RegisterScreen} />
+    <Stack.Screen
+      name="Login"
+      component={LoginScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Register"
+      component={RegisterScreen}
+      options={{ headerShown: false }}
+    />
   </Stack.Navigator>
 );
 
