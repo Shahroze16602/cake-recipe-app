@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 import { collection, addDoc } from 'firebase/firestore'; // Import Firestore methods
 import { firestore } from '../firebase'; // Replace with your Firestore instance path
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const AddRecipeScreen = ({ navigation }) => {
   const [title, setTitle] = useState('');
@@ -31,41 +32,54 @@ const AddRecipeScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView
+    <View
       style={styles.container}
       contentContainerStyle={{ paddingBottom: 50 }}>
-      <TextInput
+      <ScrollView>
+        <TextInput
+        cursorColor='red'
         style={styles.input}
         placeholder="Title"
         value={title}
         onChangeText={setTitle}
       />
       <TextInput
+        cursorColor='red'
         style={styles.input}
         placeholder="Description"
         value={description}
         onChangeText={setDescription}
       />
       <TextInput
+        cursorColor='red'
         style={styles.input}
         placeholder="Image URL"
         value={image}
         onChangeText={setImage}
       />
       <TextInput
+        cursorColor='red'
         style={styles.input}
-        placeholder="Ingredients (comma separated)"
+        placeholder="Ingredients (Press enter to add new ingredient)"
+        multiline={true}
         value={ingredients}
-        onChangeText={(text) => setIngredients(text.split(',').map(trim))} // Trim whitespace
+        onChangeText={(text) => setIngredients(text.split('\n').map(trim))} // Trim whitespace
       />
       <TextInput
+        cursorColor='red'
         style={styles.input}
-        placeholder="Instructions (comma separated)"
+        placeholder="Instructions (Press enter to add new instruction)"
+        multiline={true}
         value={instructions}
-        onChangeText={(text) => setInstructions(text.split(',').map(trim))} // Trim whitespace
+        onChangeText={(text) => setInstructions(text.split('\n').map(trim))} // Trim whitespace
       />
-      <Button title="Add Recipe" onPress={addRecipe} />
-    </ScrollView>
+      </ScrollView>
+      <TouchableOpacity style={styles.button} onPress={addRecipe}>
+        <Text style={{color: "white", fontWeight:'bold'}}>
+          Add Recipe
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -83,6 +97,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
   },
+  button: {
+    alignSelf:'center',
+    backgroundColor: 'red',
+    width: '100%',
+    padding: 16,
+    marginVertical: 10,
+    alignItems:'center',
+    borderRadius: 10,
+  }
 });
 
 export default AddRecipeScreen;

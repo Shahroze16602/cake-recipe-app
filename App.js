@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HomeScreen from './src/screens/HomeScreen';
 import RecipeScreen from './src/screens/RecipeScreen';
 import AddRecipeScreen from './src/screens/AddRecipeScreen';
@@ -13,29 +13,29 @@ import { AppRegistry } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 AppRegistry.registerComponent('cake-recipe-app', () => App);
 
 const HomeTabs = () => (
   <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ color, size }) => {
-        let iconName;
+    // screenOptions={({ route }) => ({
+    //   tabBarIcon: ({ color, size }) => {
+    //     let iconName;
 
-        if (route.name === 'Home') {
-          iconName = 'home-outline';
-        } else if (route.name === 'Favorites') {
-          iconName = 'heart-outline';
-        }
+    //     if (route.name === 'Home') {
+    //       iconName = 'home-outline';
+    //     } else if (route.name === 'Favorites') {
+    //       iconName = 'heart-outline';
+    //     }
 
-        return <Icon name={iconName} size={size} color={color} />;
-      },
-    })}
-    tabBarOptions={{
-      activeTintColor: '#00E1C5',
-      inactiveTintColor: 'gray',
-    }}
+    //     return <Icon name={iconName} size={size} color={color} />;
+    //   },
+    // })}
+    // tabBarOptions={{
+    //   activeTintColor: 'blue',
+    //   inactiveTintColor: 'gray',
+    // }}
   >
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Favorites" component={FavoritesScreen} />
@@ -44,7 +44,7 @@ const HomeTabs = () => (
 
 const AppStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ headerShown: false }} />
+    <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ title: "Cake Recipe App", headerTitleAlign:'center', headerShadowVisible: false }} />
     <Stack.Screen name="Recipe" component={RecipeScreen} />
     <Stack.Screen name="AddRecipe" component={AddRecipeScreen} />
   </Stack.Navigator>

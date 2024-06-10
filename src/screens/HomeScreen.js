@@ -76,16 +76,15 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        style={{ padding: 20 }}
         data={recipes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{paddingBottom: 70}}
+        contentContainerStyle={{paddingBottom: 70, paddingTop:16}}
         ListEmptyComponent={<Text style={styles.emptyText}>No recipes found.</Text>}
       />
       <FAB
         style={styles.fab}
-        icon={({ size, color }) => <Icon name="add" size={size} color={color} />}
+        icon={({ size }) => <Icon name="add" size={size} color="red" />}
         onPress={() => navigation.navigate('AddRecipe')}
       />
     </View>
@@ -100,6 +99,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 12,
     right: 12,
+    backgroundColor: 'white',
   },
   emptyText: {
     textAlign: 'center',

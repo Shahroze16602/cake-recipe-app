@@ -69,11 +69,10 @@ const FavoritesScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        style={{ padding: 20 }}
         data={recipes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{paddingBottom: 50}}
+        contentContainerStyle={{paddingBottom: 50, paddingTop:16}}
         ListEmptyComponent={<Text style={styles.emptyText}>No favorite recipes found.</Text>}
       />
     </View>

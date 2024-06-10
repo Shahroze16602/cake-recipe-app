@@ -21,10 +21,11 @@ const RecipeCard = ({ recipe, onPress, onFavorite, isFavorite }) => {
 const styles = StyleSheet.create({
   card: {
     marginBottom: 16,
+    marginHorizontal: 16,
     borderRadius: 8,
     overflow: 'hidden',
     backgroundColor: '#fff',
-    elevation: 2,
+    elevation: 5,
   },
   image: {
     width: '100%',
