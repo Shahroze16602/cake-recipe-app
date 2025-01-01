@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, Text } from 'react-native';
-import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { firestore, auth } from '../firebase';
-import RecipeCard from '../components/RecipeCard';
-import { FAB } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, { useEffect, useState } from "react";
+import { View, FlatList, StyleSheet, Text } from "react-native";
+import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { firestore, auth } from "../firebase";
+import RecipeCard from "../components/RecipeCard";
+import { FAB } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const HomeScreen = ({ navigation }) => {
   const [recipes, setRecipes] = useState([]);
@@ -12,17 +12,25 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     // Listen for recipe updates
-    const unsubscribeRecipes = onSnapshot(collection(firestore, 'recipes'), (snapshot) => {
-      const recipesData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setRecipes(recipesData);
-    });
+    const unsubscribeRecipes = onSnapshot(
+      collection(firestore, "recipes"),
+      (snapshot) => {
+        const recipesData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setRecipes(recipesData);
+      }
+    );
 
     // Listen for user favorites updates
     let unsubscribeFavorites;
     if (auth.currentUser) {
-      const userRef = doc(firestore, 'users', auth.currentUser.uid);
+      const userRef = doc(firestore, "users", auth.currentUser.uid);
       unsubscribeFavorites = onSnapshot(userRef, (docSnap) => {
-        const favorites = docSnap.exists() ? docSnap.data().favorites || [] : [];
+        const favorites = docSnap.exists()
+          ? docSnap.data().favorites || []
+          : [];
         setUserFavorites(favorites);
       });
     }
@@ -43,17 +51,21 @@ const HomeScreen = ({ navigation }) => {
       : [...userFavorites, recipeId];
 
     try {
-      const userRef = doc(firestore, 'users', auth.currentUser.uid);
+      const userRef = doc(firestore, "users", auth.currentUser.uid);
       await updateDoc(userRef, {
         favorites: updatedFavorites,
       });
       setUserFavorites(updatedFavorites); // Update local state
       console.log(
-        `Recipe ${isAlreadyFavorite ? 'removed from' : 'added to'} favorites successfully!`
+        `Recipe ${
+          isAlreadyFavorite ? "removed from" : "added to"
+        } favorites successfully!`
       );
     } catch (error) {
       console.error(
-        `Error ${isAlreadyFavorite ? 'removing recipe from' : 'adding recipe to'} favorites:`,
+        `Error ${
+          isAlreadyFavorite ? "removing recipe from" : "adding recipe to"
+        } favorites:`,
         error
       );
       // Handle errors appropriately
@@ -66,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
     return (
       <RecipeCard
         recipe={item}
-        onPress={() => navigation.navigate('Recipe', { recipeId: item.id })}
+        onPress={() => navigation.navigate("Recipe", { recipeId: item.id })}
         onFavorite={() => addToFavorites(item.id)}
         isFavorite={isFavorite}
       />
@@ -79,13 +91,15 @@ const HomeScreen = ({ navigation }) => {
         data={recipes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{paddingBottom: 70, paddingTop:16}}
-        ListEmptyComponent={<Text style={styles.emptyText}>No recipes found.</Text>}
+        contentContainerStyle={{ paddingBottom: 70, paddingTop: 16 }}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>No recipes found.</Text>
+        }
       />
       <FAB
         style={styles.fab}
         icon={({ size }) => <Icon name="add" size={size} color="red" />}
-        onPress={() => navigation.navigate('AddRecipe')}
+        onPress={() => navigation.navigate("AddRecipe")}
       />
     </View>
   );
@@ -96,16 +110,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   fab: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 12,
     right: 12,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   emptyText: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 20,
     fontSize: 18,
-    color: 'gray',
+    color: "gray",
   },
 });
 

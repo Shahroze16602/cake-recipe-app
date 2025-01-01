@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const RecipeCard = ({ recipe, onPress, onFavorite, isFavorite }) => {
-  const heartIconName = isFavorite ? 'heart' : 'heart-outline'; // Conditional icon name
+  const heartIconName = isFavorite ? "heart" : "heart-outline"; // Conditional icon name
 
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
@@ -23,23 +23,23 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginHorizontal: 16,
     borderRadius: 8,
-    overflow: 'hidden',
-    backgroundColor: '#fff',
+    overflow: "hidden",
+    backgroundColor: "#fff",
     elevation: 5,
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 150,
   },
   cardContent: {
     padding: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 
